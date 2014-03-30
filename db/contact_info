@@ -1,3 +1,8 @@
 _NAME:contact_info
 _FIELDS:name nick_name email o_phone m_phone address
 ## This is a comment line
+
+abc	abc  abc@email.com	+91-9696969696	+91-9696969696	-1
+abc	abc  abc@email.com	+91-9696969696	+91-9696969696	-1
+abc	abc  abc@email.com	+91-9696969696	+91-9696969696	-1
+abc	abc  abc@email.com	+91-9696969696	+91-9696969696	-1
