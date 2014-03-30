@@ -2,7 +2,6 @@ TABLE_INFO
 	
 ## $NAME $NO_OF_FIELDS $DEPENDS_ON, this is a comment do not change rename to meta
    
-_name    	6 	none
-_department	4 	none
-
+contact_info    	6 	none
+department	4 	none
 ===================================================================
