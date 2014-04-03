@@ -6,6 +6,8 @@ BEGIN {
     _comment    = "##"
     _separator  = "[=]+"
     tab_info_found = 0
+    _create_query = "^CREATE TABLE [A-Za-z]+"
+    _select_query = "^SELECT FROM [A-Za-z]+"
 }
 
 function _read_meta_info (data) {
@@ -32,21 +34,42 @@ function _read_meta_info (data) {
 
 # create_table function
 function _create_table (tb_name) {
-    
     msg = "Done Create table"
+}
+
+function _check_syntax(data, type) {
+    if (type ~ "create") {
+	if (data ~ _create_query)
+	    return 0 
+	return -1
+    }
+    if (type ~ "select") {
+	if (data ~ _select_query)
+	    return 0 
+	return -1
+    }
 }
 
 # Think how do we handle syntax checking
 function _proc_query(data) {
-    if (data ~ /CREATE/)
-	_create_table($3)
-    if (data ~ /SELECT/)
-	_read_meta_info($0)
-    return -1
+    if (data ~ /CREATE/) {
+	x = _check_syntax(data, "create")
+	if (x == 0)
+	    _create_table($3)
+	else 
+	    printf("Syntax Error, Please check")
+    }
+    if (data ~ /SELECT/) {
+	x = _check_syntax(data, "select")
+	if (x == 0)
+	    _read_meta_info($0)
+	else 
+	    printf("Syntax Error, Please check")
+    }
 }
 
 {
-    act = _proc_query($0)
+    _proc_query($0)
 }
 
 END {
