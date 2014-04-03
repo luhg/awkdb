@@ -18,15 +18,7 @@ function _read_meta_info (data) {
     if (tab_info_found == 1) 
 	if((data !~ _comment) && (data !~ _separator))
 	    tab_info[NR]=$0
-}
 
-{
-    _read_meta_info($0)
-    if(tab_info_found)
-	next
-}
-
-END { 
     i = NR
     printf("\n TABLE META\n")
     printf("\n $name      $no_columns     $depends\n")
@@ -35,4 +27,28 @@ END {
 	printf("\n %s", tab_info[i]) 
 	i = i - 1
     }
+    msg = "Done Read info"
+}
+
+# create_table function
+function _create_table (tb_name) {
+    
+    msg = "Done Create table"
+}
+
+# Think how do we handle syntax checking
+function _proc_query(data) {
+    if (data ~ /CREATE/)
+	_create_table($3)
+    if (data ~ /SELECT/)
+	_read_meta_info($0)
+    return -1
+}
+
+{
+    act = _proc_query($0)
+}
+
+END {
+    printf("\n %s", msg)
 }
