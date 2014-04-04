@@ -33,7 +33,20 @@ function _read_meta_info (data) {
 }
 
 # create_table function
+# Check for [table_name] syntax, [A-Za-z]+
+# Check if table already exists
+# Check for fields
+# _fields_check() 
+# on return success
+# create table, add .meta info, create file $table_name
 function _create_table (tb_name) {
+    _proto_tb_name = "^[A-Za-z_]+$"
+    
+    if(tb_name !~ _proto_tb_name) {
+	printf "Table has unknown syntax"
+	return -1
+    }
+
     msg = "Done Create table"
 }
 
