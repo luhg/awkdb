@@ -40,10 +40,10 @@ function _read_meta_info (data) {
 # on return success
 # create table, add .meta info, create file $table_name
 function _create_table (tb_name) {
-    _proto_tb_name = "^[A-Za-z_]+$"
+    _proto_tb_name = "^[A-Za-z_]+"
     
     if(tb_name !~ _proto_tb_name) {
-	printf "Table has unknown syntax"
+	printf("DEBUG:Table has unknown syntax\n")
 	return -1
     }
 
@@ -67,17 +67,18 @@ function _check_syntax(data, type) {
 function _proc_query(data) {
     if (data ~ /CREATE/) {
 	x = _check_syntax(data, "create")
-	if (x == 0)
+	if (x == 0) {
 	    _create_table($3)
+	}
 	else 
-	    printf("Syntax Error, Please check")
+	    printf("DEBUG:Syntax Error, Please check\n")
     }
     if (data ~ /SELECT/) {
 	x = _check_syntax(data, "select")
 	if (x == 0)
 	    _read_meta_info($0)
 	else 
-	    printf("Syntax Error, Please check")
+	    printf("DEBUG:Syntax Error, Please check\n")
     }
 }
 
@@ -86,5 +87,5 @@ function _proc_query(data) {
 }
 
 END {
-    printf("\n %s", msg)
+    printf("DEBUG: msg ::%s\n", msg)
 }

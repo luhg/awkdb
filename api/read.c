@@ -65,7 +65,7 @@ int main (int argc, char *argv[])
      if(query == NULL) 
 	  return -1;
      printf("\n %s", query);
-     sprintf(cmd, "echo '%s' | awk -f ../src/init.awk", query);
+     sprintf(cmd, "echo '%s' | awk -f ../src/table.awk", query);
      system(cmd);
      return 0;
 }
